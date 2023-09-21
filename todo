@@ -1,0 +1,36 @@
+## Weather App
+
+Enter a location in the input bar and you will see the weather in farenheit and celsius
+
+Once you start typing a dropdown menu will appear with cities that match your typed keys
+
+You have a dashboard where you can add multiple locations
+
+## What I need to display
+
+Current:
+    condition
+        text
+        icon
+    temp_c, temp_f
+    feelslike_c
+    feelslike_f
+    wind_kph
+    wind_mph
+    wind_dir
+
+Location:
+    country
+    name
+    lon
+    lat    
+
+## What I need to do
+
+Figure out what the data is and how I can represent it on the page
+
+## Pages 
+Home
+Saved
+Login
+Register
