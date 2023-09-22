@@ -1,19 +1,18 @@
 <template>
   <h1>This is the home view</h1>
-  <Search v-model="location" :query="{location}"/>
+  <!-- <Search v-model="location" :query="{location}"/> -->
+  <input @keyup.enter="getWeather" type="text" v-model="location">
   <button @click="getWeather">Get Weather</button>
-  <div v-if="weather !== 'niks'">
-    <h3>{{ weather.current.condition.text }}</h3>
-    <h3>{{ weather.current.feelslike_c }} Celsius</h3>
-    <h3>{{ weather.current.wind_kph }} Km/h</h3>
-  </div>
+  <Results :weather="weather"/>
 </template>
 <script>
 import Search from "../components/Search.vue";
+import Results from "@/components/Results.vue";
 
 export default {
   components: {
-    Search
+    Search,
+    Results
   },
   data() {
     return {
@@ -24,11 +23,9 @@ export default {
   methods: {
     async getWeather() {
       try {
-        // let response = await fetch('http://api.weatherapi.com/v1/current.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&aqi=no')
-        // this.weather = await response.json();
-        console.log(this.location)
-        // console.log(this.weather.current);
-        // console.log(this.weather.location);
+        let response = await fetch('http://api.weatherapi.com/v1/current.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&aqi=no')
+        this.weather = await response.json();
+        this.location = ''
       } catch (err) {
         console.log(err);
       }
