@@ -9,7 +9,6 @@
 
 <script>
 import router from '@/router';
-import { getApp } from 'firebase/app';
 // import {auth} from '../FirebaseConfig'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
@@ -31,16 +30,17 @@ export default {
       //         alert(error.message);
       //       });
       //   })
+
+      // idk what to comment because the code speaks for itself i guess
       const auth = getAuth()
-      createUserWithEmailAndPassword(auth,this.email, this.password)
+      createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((data) => {
           console.log('Succesfully registered');
           router.push('/')
-            .catch(error => {
-              console.log(error.code)
-              alert(error.message);
-            });
-        })
+        }).catch(error => {
+          console.log(error.code)
+          alert(error.message);
+        });
     }
   }
 }
