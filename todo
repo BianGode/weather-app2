@@ -6,6 +6,8 @@ Once you start typing a dropdown menu will appear with cities that match your ty
 
 You have a dashboard where you can add multiple locations
 
+Load the content and navbar accordingly to the isLoggedIn boolean found in App.vue
+
 ## What I need to display
 
 Current:

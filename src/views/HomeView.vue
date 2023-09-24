@@ -1,9 +1,11 @@
 <template>
-  <h1>This is the home view</h1>
-  <!-- <Search v-model="location" :query="{location}"/> -->
-  <input @keyup.enter="getWeather" type="text" v-model="location">
-  <button @click="getWeather">Get Weather</button>
-  <Results :weather="weather"/>
+  <div class="homeWrapper">
+    <h1>This is the home view</h1>
+    <!-- <Search v-model="location" :query="{location}"/> -->
+    <input @keyup.enter="getWeather" type="text" v-model="location">
+    <button @click="getWeather">Get Weather</button>
+    <Results :weather="weather" />
+  </div>
 </template>
 <script>
 import Search from "../components/Search.vue";
@@ -33,3 +35,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.homeWrapper {
+  text-align: center;
+}
+
+</style>

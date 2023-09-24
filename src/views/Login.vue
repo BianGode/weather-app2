@@ -21,10 +21,11 @@ export default {
   methods: {
     login() {
       if (this.email !== '' && this.password !== '') {
-      const auth = getAuth()
+      const auth = getAuth();
       signInWithEmailAndPassword(auth, this.email, this.password)
       .then((data) => {
         console.log('login succesfull');
+        console.log(getAuth().currentUser.email)
         router.push('/')
       }).catch((err) => {
         console.log(err.code)
