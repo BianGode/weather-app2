@@ -1,29 +1,56 @@
 <template>
   <nav>
-    <router-link class="router-link" to="/">Home</router-link>
-    <router-link class="router-link" to="/register">Register</router-link>
-    <router-link class="router-link" to="/login">Login</router-link>
+    <div class="router-link-wrapper">
+      <router-link class="router-link" to="/">Home</router-link>
+      <router-link class="router-link" to="/register" v-if="isLoggedIn == false">Register</router-link>
+      <router-link class="router-link" to="/login" v-if="isLoggedIn == false">Login</router-link>
+    </div>
+    <div v-if="isLoggedIn" class="sign-out" @click="signOutFun">
+      <h4>SignOut</h4>
+    </div>
   </nav>
-  <router-view />
+  <router-view :logged="isLoggedIn" />
 </template>
 <script>
-// import { getApp } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import router from './router'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { doc, setDoc } from "firebase/firestore";
+import { db, auth } from './main';
 
 export default {
   data() {
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
+      user: ''
+    }
+  },
+  methods: {
+    signOutFun() {
+      signOut(auth).then((res) => {
+        console.log('Logged out succesfull');
+        this.user = ''
+        router.push('/login')
+      }).catch((err) => {
+        console.log('error is ' + err);
+      })
     }
   },
   mounted() {
-    onAuthStateChanged(getAuth(), (user) => {
+    // check if user is already logged in
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('logged in');
+        this.user = user
         this.isLoggedIn = true
+        // test if i can set document
+        setDoc(doc(db, "saved-locations", "location"), {
+          city:"Arnhem"
+        });
+
       } else {
         console.log('not logged in');
         this.isLoggedIn = false
+        router.push('/')
       }
     })
   }
@@ -35,6 +62,7 @@ nav {
   background-color: #52575d;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .router-link {
@@ -58,4 +86,9 @@ body {
   color: #2c3e50;
   width: 100vw;
   height: 100vh;
-}</style>
+}
+
+.sign-out {
+  cursor: pointer;
+}
+</style>

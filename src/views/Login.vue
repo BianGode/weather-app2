@@ -9,9 +9,12 @@
 </template>
 
 <script>
-import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { signInWithEmailAndPassword} from 'firebase/auth';
+import {  } from 'firebase/database'
+import { auth } from '../main.js'
 import router from '@/router';
 export default {
+  props: ['logged'],
   data() {
     return {
       email: '',
@@ -21,18 +24,21 @@ export default {
   methods: {
     login() {
       if (this.email !== '' && this.password !== '') {
-      const auth = getAuth();
       signInWithEmailAndPassword(auth, this.email, this.password)
       .then((data) => {
         console.log('login succesfull');
-        console.log(getAuth().currentUser.email)
+        console.log(auth.currentUser.email)
         router.push('/')
       }).catch((err) => {
         console.log(err.code)
           alert(err.message);
       })
     }
-
+    }
+  },
+  mounted() {
+    if(this.isLoggedIn) {
+      router.push('/')
     }
   }
 }

@@ -12,6 +12,7 @@ import Search from "../components/Search.vue";
 import Results from "@/components/Results.vue";
 
 export default {
+  props: ['logged'],
   components: {
     Search,
     Results
@@ -23,6 +24,7 @@ export default {
     }
   },
   methods: {
+    // fetch the weather from input city name than asign the response to this.weather
     async getWeather() {
       try {
         let response = await fetch('http://api.weatherapi.com/v1/current.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&aqi=no')
