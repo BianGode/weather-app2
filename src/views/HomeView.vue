@@ -4,7 +4,7 @@
     <!-- <Search v-model="location" :query="{location}"/> -->
     <input @keyup.enter="getWeather" type="text" v-model="location">
     <button @click="getWeather">Get Weather</button>
-    <Results :weather="weather" />
+    <Results :weather="weather" :unit="unit" />
   </div>
 </template>
 <script>
@@ -12,7 +12,7 @@ import Search from "../components/Search.vue";
 import Results from "@/components/Results.vue";
 
 export default {
-  props: ['logged'],
+  props: ['logged', 'unit'],
   components: {
     Search,
     Results

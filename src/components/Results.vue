@@ -4,23 +4,22 @@
       <div class="current">
         <img :src="'https:' + weather.current.condition.icon" :alt="weather.current.condition.text" />
         <h3>{{ weather.current.condition.text }}</h3>
-
-        <h3 v-if="CorF == 'C'">Temp: {{ weather.current.temp_c }} Celsius</h3>
-        <h3 v-if="CorF == 'C'">Feels like:{{ weather.current.feelslike_c }} Celsius</h3>
-        <h3 v-if="CorF == 'C'">{{ weather.current.wind_kph }} Km/h</h3>
+        <p v-if="unit == 'C'">Temp: {{ weather.current.temp_c }} Celsius</p>
+        <p v-if="unit == 'C'">Feels like:{{ weather.current.feelslike_c }} Celsius</p>
+        <p v-if="unit == 'C'">{{ weather.current.wind_kph }} Km/h</p>
         
-        <h3 v-if="CorF == 'F'">Temp: {{ weather.current.temp_f }}Fahrenheit</h3>
-        <h3 v-if="CorF == 'F'">Feels like:{{ weather.current.feelslike_f }} Fahrenheit</h3>
-        <h3 v-if="CorF == 'F'">{{ weather.current.wind_mph }} Mp/h</h3>
+        <p v-if="unit == 'F'">Temp: {{ weather.current.temp_f }}Fahrenheit</p>
+        <p v-if="unit == 'F'">Feels like:{{ weather.current.feelslike_f }} Fahrenheit</p>
+        <p v-if="unit == 'F'">{{ weather.current.wind_mph }} Mp/h</p>
 
-        <h3>Wind Direction:{{ weather.current.wind_dir }}</h3>
+        <p>Wind Direction:{{ weather.current.wind_dir }}</p>
 
       </div>
       <div class="location">
         <h3>{{ weather.location.name }}</h3>
+        <h4>{{ weather.location.country }}</h4>
         <div>
-          <h3>{{ weather.location.lon }}</h3>
-          <h3>{{ weather.location.lat }}</h3>
+          <p>{{ weather.location.lon }} : {{ weather.location.lat }}</p>
         </div>
       </div>
     </div>
@@ -29,7 +28,7 @@
 
 <script>
 export default {
-  props: ['weather', 'icon', 'CorF'],
+  props: ['weather', 'icon', 'unit'],
   data() {
     return {
       IconString: ''
@@ -43,10 +42,12 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .resultWrapper {
   display: grid;
   grid-template-columns: auto auto;
+}
+.location > div {
+  display: inline;
 }
 </style>

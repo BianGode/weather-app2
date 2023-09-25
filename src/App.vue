@@ -14,7 +14,7 @@
     <p v-if="CorF == 'C'">Celcius</p>
     <p v-if="CorF == 'F'">Fahrenheit</p>
   </div>
-  <router-view :logged="isLoggedIn" :CorF="CorF" />
+  <router-view :logged="isLoggedIn" :unit="CorF" />
 </template>
 <script>
 import router from './router'
