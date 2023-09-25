@@ -9,11 +9,16 @@
       <h4>SignOut</h4>
     </div>
   </nav>
-  <router-view :logged="isLoggedIn" />
+  <div @click="unitConverter" class="floatingbutton-div">
+    <button class="unit-change-btn">{{ CorF }}</button>
+    <p v-if="CorF == 'C'">Celcius</p>
+    <p v-if="CorF == 'F'">Fahrenheit</p>
+  </div>
+  <router-view :logged="isLoggedIn" :CorF="CorF" />
 </template>
 <script>
 import router from './router'
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from './main';
 
@@ -21,7 +26,8 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      user: ''
+      user: '',
+      CorF: 'C'
     }
   },
   methods: {
@@ -33,6 +39,9 @@ export default {
       }).catch((err) => {
         console.log('error is ' + err);
       })
+    },
+    unitConverter() {
+      this.CorF == 'C' ? this.CorF = 'F' : this.CorF = 'C'
     }
   },
   mounted() {
@@ -44,7 +53,7 @@ export default {
         this.isLoggedIn = true
         // test if i can set document
         setDoc(doc(db, "saved-locations", "location"), {
-          city:"Arnhem"
+          city: "Arnhem"
         });
 
       } else {
@@ -90,5 +99,20 @@ body {
 
 .sign-out {
   cursor: pointer;
+}
+
+/* flaating celcius fahrenheit button style */
+.floatingbutton-div {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+}
+
+.floatingbutton-div>p {
+  display: none;
+}
+
+.unit-change-btn:hover .floatingbutton-div>p {
+  display: block;
 }
 </style>

@@ -3,14 +3,18 @@
     <div class="resultWrapper" v-if="weather !== 'niks'">
       <div class="current">
         <img :src="'https:' + weather.current.condition.icon" :alt="weather.current.condition.text" />
-        <h3>{{ weather.current.condition.icon }}</h3>
-        <h3>Temp: {{ weather.current.temp_c }} Celsius</h3>
-        <!-- <h3>Temp: {{ weather.current.temp_f }}Fahrenheit</h3> -->
-        <h3>Feels like:{{ weather.current.feelslike_c }} Celsius</h3>
-        <!-- <h3>Feels like:{{ weather.current.feelslike_f }} Fahrenheit</h3> -->
-        <h3>{{ weather.current.wind_kph }} Km/h</h3>
-        <!-- <h3>{{ weather.current.wind_mph }} Mp/h</h3> -->
+        <h3>{{ weather.current.condition.text }}</h3>
+
+        <h3 v-if="CorF == 'C'">Temp: {{ weather.current.temp_c }} Celsius</h3>
+        <h3 v-if="CorF == 'C'">Feels like:{{ weather.current.feelslike_c }} Celsius</h3>
+        <h3 v-if="CorF == 'C'">{{ weather.current.wind_kph }} Km/h</h3>
+        
+        <h3 v-if="CorF == 'F'">Temp: {{ weather.current.temp_f }}Fahrenheit</h3>
+        <h3 v-if="CorF == 'F'">Feels like:{{ weather.current.feelslike_f }} Fahrenheit</h3>
+        <h3 v-if="CorF == 'F'">{{ weather.current.wind_mph }} Mp/h</h3>
+
         <h3>Wind Direction:{{ weather.current.wind_dir }}</h3>
+
       </div>
       <div class="location">
         <h3>{{ weather.location.name }}</h3>
