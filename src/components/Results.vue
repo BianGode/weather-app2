@@ -1,5 +1,9 @@
 <template>
   <div>
+    <!-- <iframe src="https://google.com" frameborder="1"></iframe> -->
+      <!-- <video playsinline autoplay muted loop id="bgvid">
+        <source src="../assets/rainAnimate.mp4" type="video/mp4">
+      </video> -->
     <div class="resultWrapper" v-if="weather !== 'niks'">
       <div class="current">
         <img :src="'https:' + weather.current.condition.icon" :alt="weather.current.condition.text" />
@@ -7,7 +11,7 @@
         <p v-if="unit == 'C'">Temp: {{ weather.current.temp_c }} Celsius</p>
         <p v-if="unit == 'C'">Feels like:{{ weather.current.feelslike_c }} Celsius</p>
         <p v-if="unit == 'C'">{{ weather.current.wind_kph }} Km/h</p>
-        
+
         <p v-if="unit == 'F'">Temp: {{ weather.current.temp_f }}Fahrenheit</p>
         <p v-if="unit == 'F'">Feels like:{{ weather.current.feelslike_f }} Fahrenheit</p>
         <p v-if="unit == 'F'">{{ weather.current.wind_mph }} Mp/h</p>
@@ -46,8 +50,21 @@ export default {
 .resultWrapper {
   display: grid;
   grid-template-columns: auto auto;
+  position: relative;
 }
-.location > div {
+
+.location>div {
   display: inline;
+}
+
+/* video styling */
+
+video {
+  object-fit: cover;
+  width: 100px;
+  height: 300px;
+  position: fixed;
+  top: 0;
+  left: 0
 }
 </style>

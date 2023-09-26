@@ -108,11 +108,30 @@ body {
   right: 30px;
 }
 
+.unit-change-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  background-color: rgb(0, 194, 200);
+  width: 50px;
+  height: 50px;
+  border-radius: 90px;
+  border: 3px solid rgb(5, 68, 113);
+}
 .floatingbutton-div>p {
-  display: none;
+  /* display: none; */
+  color: white;
 }
 
-.unit-change-btn:hover .floatingbutton-div>p {
+.floatingbutton-div:hover > p {
   display: block;
+  color: black;
+  transition: 0.2s ease-in-out;
+}
+.floatingbutton-div:hover > .unit-change-btn {
+  background-color: rgb(58, 160, 233);
+  border: 3px solid rgb(16, 121, 125);
+  transition: 0.2s ease-in-out;
+
 }
 </style>
