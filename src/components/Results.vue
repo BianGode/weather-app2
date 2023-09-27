@@ -30,17 +30,23 @@
     </div>
 
     <div class="resultWrapper" v-if="weather == 'niks' && forecast !== ''">
-      <!-- <p v-for="day in forecast.forecastday">
-        <h3>{{ day.date }}</h3>
-        <p v-for="hour in day.hour">
-          {{ hour.temp_c }}
-          {{ hour.time }}
-        </p>
-      </p> -->
+      <!-- <h3>{{  }}</h3> -->
+      <!-- <p v-for="day in forecast.forecastday"> -->
+      <!-- <h3>{{ day.date }}</h3> -->
+      
+
+      <!-- <p v-for="hour in day.hour"> -->
+      <!-- {{ hour.temp_c }} -->
+      <!-- </p> -->
+
+      <!-- </p> -->
     </div>
 
   </div>
 </template>
+
+<!-- ############# -->
+<!-- converted the data to usable but still need to render -->
 
 <script>
 export default {
@@ -48,19 +54,27 @@ export default {
   data() {
     return {
       IconString: '',
+      forecastConvArr: '',
+      forecastCoverted: {
+        timeArr: [],
+
+      }
     }
   },
   mounted() {
-    console.log(this.weather);
-    console.log(this.forecast);
+    // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
     this.forecast.forecastday.forEach((el) => {
       el.hour.forEach((hour) => {
-        // console.log(hour.temp_c);
-        // console.log(hour.time);
         let timeConv = hour.time.split(' ')
-        console.log(timeConv[1]);
+        this.forecastCoverted.timeArr.push({
+          time: timeConv[1],
+          tempC: hour.temp_c,
+          tempF: hour.temp_f
+        })
       })
     })
+    console.log(this.forecastCoverted.timeArr);
+  
   },
   methods: {
 
