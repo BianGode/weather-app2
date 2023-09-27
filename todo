@@ -27,6 +27,14 @@ Location:
     lon
     lat    
 
+Forecast:
+    I want to display a day and under that date is a horizontal scroll bar to see the weather per hour like this:
+
+    22 may
+01:00 02:00 03:00
+ 23    22    22
+
+
 ## What I need to do
 
 Figure out what the data is and how I can represent it on the page

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <iframe src="https://google.com" frameborder="1"></iframe> -->
-      <!-- <video playsinline autoplay muted loop id="bgvid">
+    <!-- <video playsinline autoplay muted loop id="bgvid">
         <source src="../assets/rainAnimate.mp4" type="video/mp4">
       </video> -->
 
@@ -28,15 +28,15 @@
         </div>
       </div>
     </div>
-    
+
     <div class="resultWrapper" v-if="weather == 'niks' && forecast !== ''">
-      <p v-for="day in forecast.forecastday">
+      <!-- <p v-for="day in forecast.forecastday">
         <h3>{{ day.date }}</h3>
         <p v-for="hour in day.hour">
-          {{hour.temp_c}}
-          {{hour.time}}
+          {{ hour.temp_c }}
+          {{ hour.time }}
         </p>
-      </p>
+      </p> -->
     </div>
 
   </div>
@@ -47,11 +47,20 @@ export default {
   props: ['weather', 'forecast', 'icon', 'unit'],
   data() {
     return {
-      IconString: ''
+      IconString: '',
     }
   },
   mounted() {
     console.log(this.weather);
+    console.log(this.forecast);
+    this.forecast.forecastday.forEach((el) => {
+      el.hour.forEach((hour) => {
+        // console.log(hour.temp_c);
+        // console.log(hour.time);
+        let timeConv = hour.time.split(' ')
+        console.log(timeConv[1]);
+      })
+    })
   },
   methods: {
 

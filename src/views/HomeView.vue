@@ -5,7 +5,7 @@
     <input @keyup.enter="getWeatherNow" type="text" v-model="location">
     <button @click="getWeatherNow">Get Weather Now</button>
     <button @click="getWeatherForecast">Get Weather Forecast</button>
-    <Results :weather="weather" :unit="unit" :forecast="forecast" />
+    <Results v-if="weather !== 'niks' || forecast !== ''" :weather="weather" :unit="unit" :forecast="forecast" />
     <h3 v-if="weather.forecast">{{ weather.forecast }}</h3>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
     parseForecastDate(data) {
       data.forEach((el) => {
         el.hour.forEach((hour) => {
-          console.log(hour);
+          // console.log(hour.temp_c);
+          // console.log(hour.temp_c);
         })
       })
       console.log(data.split(' '))
@@ -52,11 +53,11 @@ export default {
         let forecastParse = await response.json();
         this.forecast = forecastParse.forecast
 
-        this.forecast.forecastday.forEach((el) => {
-          el.hour.forEach((hour) => {
-            console.log(hour);
-          })
-        })
+        // this.forecast.forecastday.forEach((el) => {
+        //   el.hour.forEach((hour) => {
+        //     console.log(hour);
+        //   })
+        // })
 
         // parseForecastDate(this.forecast)
         // console.log(this.forecast);
