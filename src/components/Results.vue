@@ -4,7 +4,8 @@
       <!-- <video playsinline autoplay muted loop id="bgvid">
         <source src="../assets/rainAnimate.mp4" type="video/mp4">
       </video> -->
-    <div class="resultWrapper" v-if="weather !== 'niks'">
+
+    <div class="resultWrapper" v-if="weather !== 'niks' && forecast == ''">
       <div class="current">
         <img :src="'https:' + weather.current.condition.icon" :alt="weather.current.condition.text" />
         <h3>{{ weather.current.condition.text }}</h3>
@@ -27,12 +28,23 @@
         </div>
       </div>
     </div>
+    
+    <div class="resultWrapper" v-if="weather == 'niks' && forecast !== ''">
+      <p v-for="day in forecast.forecastday">
+        <h3>{{ day.date }}</h3>
+        <p v-for="hour in day.hour">
+          {{hour.temp_c}}
+          {{hour.time}}
+        </p>
+      </p>
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
-  props: ['weather', 'icon', 'unit'],
+  props: ['weather', 'forecast', 'icon', 'unit'],
   data() {
     return {
       IconString: ''
