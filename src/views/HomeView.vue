@@ -5,7 +5,7 @@
     <input @keyup.enter="getWeatherNow" type="text" v-model="location">
     <button @click="getWeatherNow">Get Weather Now</button>
     <button @click="getWeatherForecast">Get Weather Forecast</button>
-    <Results v-if="weather !== 'niks' || forecast !== ''" :weather="weather" :unit="unit" :forecast="forecast" />
+    <Results v-if="weather !== 'niks' || forecast !== ''" :weather="weather" :unit="unit" :forecast="forecast" :city="city" />
     <h3 v-if="weather.forecast">{{ weather.forecast }}</h3>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
     return {
       weather: 'niks',
       location: '',
-      forecast: ''
+      forecast: '',
+      city: ''
     }
   },
   methods: {
@@ -51,6 +52,7 @@ export default {
         // let response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=b38dbcfab3d74cde9d0113841232009&q=''&aqi=no')
         let forecastParse = await response.json();
         this.forecast = forecastParse.forecast
+        this.city = forecastParse.location.name
 
         // this.forecast.forecastday.forEach((el) => {
         //   el.hour.forEach((hour) => {

@@ -5,7 +5,7 @@
         <source src="../assets/rainAnimate.mp4" type="video/mp4">
       </video> -->
 
-    <div class="resultWrapper" v-if="weather !== 'niks' && forecast == ''">
+    <div class="resultWrapper" v-if="weather !== 'niks'">
       <div class="current">
         <img :src="'https:' + weather.current.condition.icon" :alt="weather.current.condition.text" />
         <h3>{{ weather.current.condition.text }}</h3>
@@ -30,8 +30,8 @@
     </div>
 
     <!-- v-if="weather == 'niks' && forecast !== ''" -->
-    <div :class="{forecast: forecast !== '', weather: weather !== 'niks'}" v-if="forecastCoverted.timeArr.length > 0">
-      
+    <h2>{{ city }}</h2>
+    <div class="forecast" v-if="forecastCoverted.timeArr.length > 0">
       <div class="hour" v-for="hour in forecastCoverted.timeArr">
         <p>{{ hour.time }}</p>
         <p v-if="unit == 'C'">{{ hour.tempC }}</p>
@@ -39,7 +39,7 @@
       </div>
       <!-- <p v-for="day in forecast.forecastday"> -->
       <!-- <h3>{{ day.date }}</h3> -->
-      
+
 
       <!-- <p v-for="hour in day.hour"> -->
       <!-- {{ hour.temp_c }} -->
@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  props: ['weather', 'forecast', 'icon', 'unit'],
+  props: ['weather', 'forecast', 'icon', 'unit', 'city'],
   data() {
     return {
       IconString: '',
@@ -68,22 +68,24 @@ export default {
     }
   },
   mounted() {
+
     // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
-    this.forecast.forecastday.forEach((el) => {
-      el.hour.forEach((hour) => {
-        let timeConv = hour.time.split(' ')
-        console.log(timeConv);
-        timeConv = timeConv[1].split(':')
-        console.log(timeConv)
-        this.forecastCoverted.timeArr.push({
-          time: timeConv[0],
-          tempC: hour.temp_c,
-          tempF: hour.temp_f
+    if (this.forecast !== '') {
+      this.forecast.forecastday.forEach((el) => {
+        el.hour.forEach((hour) => {
+          let timeConv = hour.time.split(' ')
+          console.log(timeConv);
+          timeConv = timeConv[1].split(':')
+          console.log(timeConv)
+          this.forecastCoverted.timeArr.push({
+            time: timeConv[0],
+            tempC: hour.temp_c,
+            tempF: hour.temp_f
+          })
         })
       })
-    })
-    console.log(this.forecastCoverted.timeArr);
-  
+      console.log(this.forecastCoverted.timeArr);
+    }
   },
   methods: {
 
@@ -117,16 +119,19 @@ video {
   overflow: auto;
   white-space: nowrap;
   width: 600px;
+  margin: 0 auto;
   /* display: grid;
   grid-template-columns: auto auto;
   position: relative; */
-  
+
 }
-.hour{
+
+.hour {
   display: inline-block;
   margin: 10px 10px;
 }
-.hour > p {
+
+.hour>p {
   /* display: inline-block; */
 }
 </style>
