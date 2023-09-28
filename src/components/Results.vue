@@ -64,32 +64,37 @@ export default {
       forecastCoverted: {
         timeArr: [],
 
-      }
+      },
+      forecastComp: this.forecast !== ''? this.forecast : ''
     }
   },
   mounted() {
 
   },
+  computed: {
+    // Here I need to use computed properties to make calculation in the right place
+    // I push this to github because i can and i want to have more github pushes
+  },
   watch: {
-    forecast: function(val) {
-      console.log(val) 
+    forecastComp: function(newval, oldval) {
+      console.log(newval, oldval)
       // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
-      if (this.forecast !== '') {
-        this.forecast.forecastday.forEach((el) => {
-          el.hour.forEach((hour) => {
-            let timeConv = hour.time.split(' ')
-            console.log(timeConv);
-            timeConv = timeConv[1].split(':')
-            console.log(timeConv)
-            this.forecastCoverted.timeArr.push({
-              time: timeConv[0],
-              tempC: hour.temp_c,
-              tempF: hour.temp_f
-            })
+      // if (this.forecast !== '') {
+      this.forecast.forecastday.forEach((el) => {
+        el.hour.forEach((hour) => {
+          let timeConv = hour.time.split(' ')
+          console.log(timeConv);
+          timeConv = timeConv[1].split(':')
+          console.log(timeConv)
+          this.forecastCoverted.timeArr.push({
+            time: timeConv[0],
+            tempC: hour.temp_c,
+            tempF: hour.temp_f
           })
         })
-        console.log(this.forecastCoverted.timeArr);
-      }
+      })
+      console.log(this.forecastCoverted.timeArr);
+      // }
     }
   },
   methods: {
