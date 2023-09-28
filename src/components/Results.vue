@@ -52,7 +52,7 @@
 </template>
 
 <!-- ############# -->
-<!-- converted the data to usable array objects but still need to render -->
+<!-- after the forecast renders once and I type in another location the values dont update -->
 
 <script>
 export default {
@@ -69,22 +69,27 @@ export default {
   },
   mounted() {
 
-    // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
-    if (this.forecast !== '') {
-      this.forecast.forecastday.forEach((el) => {
-        el.hour.forEach((hour) => {
-          let timeConv = hour.time.split(' ')
-          console.log(timeConv);
-          timeConv = timeConv[1].split(':')
-          console.log(timeConv)
-          this.forecastCoverted.timeArr.push({
-            time: timeConv[0],
-            tempC: hour.temp_c,
-            tempF: hour.temp_f
+  },
+  watch: {
+    forecast: function(val) {
+      console.log(val) 
+      // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
+      if (this.forecast !== '') {
+        this.forecast.forecastday.forEach((el) => {
+          el.hour.forEach((hour) => {
+            let timeConv = hour.time.split(' ')
+            console.log(timeConv);
+            timeConv = timeConv[1].split(':')
+            console.log(timeConv)
+            this.forecastCoverted.timeArr.push({
+              time: timeConv[0],
+              tempC: hour.temp_c,
+              tempF: hour.temp_f
+            })
           })
         })
-      })
-      console.log(this.forecastCoverted.timeArr);
+        console.log(this.forecastCoverted.timeArr);
+      }
     }
   },
   methods: {
