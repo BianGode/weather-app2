@@ -29,8 +29,14 @@
       </div>
     </div>
 
-    <div class="resultWrapper" v-if="weather == 'niks' && forecast !== ''">
-      <!-- <h3>{{  }}</h3> -->
+    <!-- v-if="weather == 'niks' && forecast !== ''" -->
+    <div :class="{forecast: forecast !== '', weather: weather !== 'niks'}" v-if="forecastCoverted.timeArr.length > 0">
+      
+      <div class="hour" v-for="hour in forecastCoverted.timeArr">
+        <p>{{ hour.time }}</p>
+        <p v-if="unit == 'C'">{{ hour.tempC }}</p>
+        <p v-if="unit == 'F'">{{ hour.tempF }}</p>
+      </div>
       <!-- <p v-for="day in forecast.forecastday"> -->
       <!-- <h3>{{ day.date }}</h3> -->
       
@@ -46,7 +52,7 @@
 </template>
 
 <!-- ############# -->
-<!-- converted the data to usable but still need to render -->
+<!-- converted the data to usable array objects but still need to render -->
 
 <script>
 export default {
@@ -66,8 +72,11 @@ export default {
     this.forecast.forecastday.forEach((el) => {
       el.hour.forEach((hour) => {
         let timeConv = hour.time.split(' ')
+        console.log(timeConv);
+        timeConv = timeConv[1].split(':')
+        console.log(timeConv)
         this.forecastCoverted.timeArr.push({
-          time: timeConv[1],
+          time: timeConv[0],
           tempC: hour.temp_c,
           tempF: hour.temp_f
         })
@@ -101,5 +110,23 @@ video {
   position: fixed;
   top: 0;
   left: 0
+}
+
+/* scrollable horizontal list */
+.forecast {
+  overflow: auto;
+  white-space: nowrap;
+  width: 600px;
+  /* display: grid;
+  grid-template-columns: auto auto;
+  position: relative; */
+  
+}
+.hour{
+  display: inline-block;
+  margin: 10px 10px;
+}
+.hour > p {
+  /* display: inline-block; */
 }
 </style>

@@ -30,8 +30,6 @@ export default {
     parseForecastDate(data) {
       data.forEach((el) => {
         el.hour.forEach((hour) => {
-          // console.log(hour.temp_c);
-          // console.log(hour.temp_c);
         })
       })
       console.log(data.split(' '))
@@ -42,6 +40,7 @@ export default {
         let response = await fetch('http://api.weatherapi.com/v1/current.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&aqi=no')
         this.weather = await response.json();
         this.location = ''
+        this.forecast = ''
       } catch (err) {
         console.log(err);
       }
@@ -62,6 +61,7 @@ export default {
         // parseForecastDate(this.forecast)
         // console.log(this.forecast);
         this.location = ''
+        this.weather = 'niks'
       } catch (err) {
         console.log(err);
       }
