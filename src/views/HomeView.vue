@@ -50,9 +50,9 @@ export default {
       try {
         let response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&days=2&aqi=no&alerts=no')
         // let response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=b38dbcfab3d74cde9d0113841232009&q=''&aqi=no')
-        this.forecast = await response.json();
-        this.city = this.forecast.location.name
-        this.forecast = this.forecast.forecast
+        let forecastTemp = await response.json();
+        this.city = forecastTemp.location.name
+        this.forecast = forecastTemp.forecast
         // this.forecast.forecastday.forEach((el) => {
         //   el.hour.forEach((hour) => {
         //     console.log(hour);

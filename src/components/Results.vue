@@ -32,6 +32,7 @@
     <!-- v-if="weather == 'niks' && forecast !== ''" -->
     <h2>{{ city }}</h2>
     <div class="forecast" v-if="forecastCoverted.timeArr.length > 0">
+      
       <div class="hour" v-for="hour in forecastCoverted.timeArr">
         <p>{{ hour.time }}</p>
         <p v-if="unit == 'C'">{{ hour.tempC }}</p>
@@ -63,29 +64,19 @@ export default {
       forecastConvArr: '',
       forecastCoverted: {
         timeArr: [],
-
       },
-      forecastComp: this.forecast !== ''? this.forecast : ''
+      forecastComp: this.forecast
     }
   },
   mounted() {
-
-  },
-  computed: {
-    // Here I need to use computed properties to make calculation in the right place
-    // I push this to github because i can and i want to have more github pushes
-  },
-  watch: {
-    forecastComp: function(newval, oldval) {
-      console.log(newval, oldval)
-      // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
-      // if (this.forecast !== '') {
+    if (this.forecast !== '') {
+      this.forecastCoverted.timeArr = []
       this.forecast.forecastday.forEach((el) => {
         el.hour.forEach((hour) => {
           let timeConv = hour.time.split(' ')
-          console.log(timeConv);
+          // console.log(timeConv);
           timeConv = timeConv[1].split(':')
-          console.log(timeConv)
+          // console.log(timeConv)
           this.forecastCoverted.timeArr.push({
             time: timeConv[0],
             tempC: hour.temp_c,
@@ -94,8 +85,40 @@ export default {
         })
       })
       console.log(this.forecastCoverted.timeArr);
-      // }
     }
+  },
+  computed: {
+    // Here I need to use computed properties to make calculation in the right place
+    // I push this to github because i can and i want to have more github pushes
+    forecastRender() {
+      // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
+
+    }
+  },
+  watch: {
+    forecast(n, o) {
+      console.log('new: ', n);
+      if (this.forecast !== '') {
+      this.forecastCoverted.timeArr = []
+      n.forecastday.forEach((el) => {
+        el.hour.forEach((hour) => {
+          let timeConv = hour.time.split(' ')
+          // console.log(timeConv);
+          timeConv = timeConv[1].split(':')
+          // console.log(timeConv)
+          this.forecastCoverted.timeArr.push({
+            time: timeConv[0],
+            tempC: hour.temp_c,
+            tempF: hour.temp_f
+          })
+        })
+      })
+      console.log(this.forecastCoverted.timeArr);
+      }
+    }
+    // forecastComp: function (newval, oldval) {
+      // console.log(newval, oldval)
+    // }
   },
   methods: {
 
