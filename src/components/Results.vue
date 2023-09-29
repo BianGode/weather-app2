@@ -68,39 +68,12 @@ export default {
       forecastComp: this.forecast
     }
   },
-  mounted() {
-    if (this.forecast !== '') {
-      this.forecastCoverted.timeArr = []
-      this.forecast.forecastday.forEach((el) => {
-        el.hour.forEach((hour) => {
-          let timeConv = hour.time.split(' ')
-          // console.log(timeConv);
-          timeConv = timeConv[1].split(':')
-          // console.log(timeConv)
-          this.forecastCoverted.timeArr.push({
-            time: timeConv[0],
-            tempC: hour.temp_c,
-            tempF: hour.temp_f
-          })
-        })
-      })
-      console.log(this.forecastCoverted.timeArr);
-    }
-  },
-  computed: {
-    // Here I need to use computed properties to make calculation in the right place
-    // I push this to github because i can and i want to have more github pushes
-    forecastRender() {
-      // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
-
-    }
-  },
-  watch: {
-    forecast(n, o) {
-      console.log('new: ', n);
+  methods: {
+    loopForecast(arr) {
       if (this.forecast !== '') {
       this.forecastCoverted.timeArr = []
-      n.forecastday.forEach((el) => {
+      // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
+      arr.forecastday.forEach((el) => {
         el.hour.forEach((hour) => {
           let timeConv = hour.time.split(' ')
           // console.log(timeConv);
@@ -116,12 +89,22 @@ export default {
       console.log(this.forecastCoverted.timeArr);
       }
     }
-    // forecastComp: function (newval, oldval) {
-      // console.log(newval, oldval)
-    // }
   },
-  methods: {
+  mounted() {
+    this.loopForecast(this.forecast)
+  },
+  computed: {
+    // Here I need to use computed properties to make calculation in the right place
+    // I push this to github because i can and i want to have more github pushes
+    forecastRender() {
+      // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
 
+    }
+  },
+  watch: {
+    forecast(n, o) {
+      this.loopForecast(n)
+    }
   }
 }
 </script>

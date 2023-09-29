@@ -28,13 +28,6 @@ export default {
     }
   },
   methods: {
-    parseForecastDate(data) {
-      data.forEach((el) => {
-        el.hour.forEach((hour) => {
-        })
-      })
-      console.log(data.split(' '))
-    },
     // fetch the weather from input city name than asign the response to this.weather
     async getWeatherNow() {
       try {
@@ -44,27 +37,22 @@ export default {
         this.forecast = ''
       } catch (err) {
         console.log(err);
+        alert('city of country does not excist')
       }
     },
     async getWeatherForecast() {
+      // fetch the forecast for 2 days. 
+      // I want to make a variable where you can ask for n amount of days
       try {
         let response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&days=2&aqi=no&alerts=no')
-        // let response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=b38dbcfab3d74cde9d0113841232009&q=''&aqi=no')
         let forecastTemp = await response.json();
         this.city = forecastTemp.location.name
         this.forecast = forecastTemp.forecast
-        // this.forecast.forecastday.forEach((el) => {
-        //   el.hour.forEach((hour) => {
-        //     console.log(hour);
-        //   })
-        // })
-
-        // parseForecastDate(this.forecast)
-        // console.log(this.forecast);
         this.location = ''
         this.weather = 'niks'
       } catch (err) {
         console.log(err);
+        alert('city of country does not excist')
       }
     }
   }
