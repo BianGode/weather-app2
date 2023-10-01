@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- <iframe src="https://google.com" frameborder="1"></iframe> -->
-    <!-- <video playsinline autoplay muted loop id="bgvid">
-        <source src="../assets/rainAnimate.mp4" type="video/mp4">
-      </video> -->
-
     <div class="resultWrapper" v-if="weather !== 'niks'">
       <div class="current">
         <img :src="'https:' + weather.current.condition.icon" :alt="weather.current.condition.text" />
@@ -29,7 +24,6 @@
       </div>
     </div>
 
-    <!-- v-if="weather == 'niks' && forecast !== ''" -->
     <h2>{{ city }}</h2>
     <div class="forecast" v-if="forecastCoverted.timeArr.length > 0">
       
@@ -38,15 +32,6 @@
         <p v-if="unit == 'C'">{{ hour.tempC }}</p>
         <p v-if="unit == 'F'">{{ hour.tempF }}</p>
       </div>
-      <!-- <p v-for="day in forecast.forecastday"> -->
-      <!-- <h3>{{ day.date }}</h3> -->
-
-
-      <!-- <p v-for="hour in day.hour"> -->
-      <!-- {{ hour.temp_c }} -->
-      <!-- </p> -->
-
-      <!-- </p> -->
     </div>
 
   </div>
@@ -69,6 +54,7 @@ export default {
     }
   },
   methods: {
+    // method to extract and represent the data in an array of objects. 
     loopForecast(arr) {
       if (this.forecast !== '') {
       this.forecastCoverted.timeArr = []
@@ -98,10 +84,11 @@ export default {
     // I push this to github because i can and i want to have more github pushes
     forecastRender() {
       // The forEach is to convert the data into a usable array of objects with time and temperature in C and F 
-
+      // I do not need to calculate anything beforehand so I dont have to use computed properties I think
     }
   },
   watch: {
+    // listen for changes on the prop forecast and then render the new data via loopForecast()
     forecast(n, o) {
       this.loopForecast(n)
     }

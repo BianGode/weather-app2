@@ -46,8 +46,10 @@ export default {
       try {
         let response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&days=2&aqi=no&alerts=no')
         let forecastTemp = await response.json();
+        // asign the fetched response to the correct variable
         this.city = forecastTemp.location.name
         this.forecast = forecastTemp.forecast
+        // reset the variables so its doens't add but replace or something
         this.location = ''
         this.weather = 'niks'
       } catch (err) {
