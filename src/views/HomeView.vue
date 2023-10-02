@@ -3,7 +3,7 @@
     <h1>This is the home view</h1>
     <!-- <Search v-model="location" :query="{location}"/> -->
     <div class="weather-search-wrapper">
-      <input @keyup.enter="getWeatherNow" type="text" v-model="location">
+      <input @keyup.enter="getWeatherNow" @change="getNames" type="text" v-model="location">
       <div class="search-btn-wrap">
         <button class="weather-now btn" @click="getWeatherNow">Weather Now</button>
         <button class="weather-forecast btn" @click="getWeatherForecast">Forecast</button>
@@ -29,10 +29,23 @@ export default {
       weather: 'niks',
       location: '',
       forecast: '',
-      city: ''
+      city: '' 
     }
   },
   methods: {
+    // fetch list of names
+    // Trying to get a list/autcomplete of cities when the input value changes 
+    async getNames() {
+      // api call doesn't work yet 
+      await fetch('http://api.weatherapi.com/v1/search.json?key=b38dbcfab3d74cde9d0113841232009&q=' + this.location + '&aqi=no')
+      .then((res) => {
+        let tempNames = res.json()
+        console.log(tempNames);
+      }).catch((err) => {
+        console.log(err);
+      })
+    },
+
     // fetch the weather from input city name than asign the response to this.weather
     async getWeatherNow() {
       try {
@@ -93,7 +106,7 @@ input {
 
 }
 input:focus {
-  outline: 3px solid rgb(173, 69, 102);
+  outline: 2px solid rgb(173, 69, 102);
 }
 .weather-search-wrapper {
   width: fit-content;
