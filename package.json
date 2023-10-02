@@ -10,7 +10,8 @@
     "core-js": "^3.8.3",
     "firebase": "^10.4.0",
     "vue": "^3.2.26",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue2-google-maps": "^0.10.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

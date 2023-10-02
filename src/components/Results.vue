@@ -134,7 +134,4 @@ video {
   margin: 10px 10px;
 }
 
-.hour>p {
-  /* display: inline-block; */
-}
 </style>

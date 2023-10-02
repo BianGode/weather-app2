@@ -2,10 +2,15 @@
   <div class="homeWrapper">
     <h1>This is the home view</h1>
     <!-- <Search v-model="location" :query="{location}"/> -->
-    <input @keyup.enter="getWeatherNow" type="text" v-model="location">
-    <button @click="getWeatherNow">Get Weather Now</button>
-    <button @click="getWeatherForecast">Get Weather Forecast</button>
-    <Results v-if="weather !== 'niks' || forecast !== ''" :weather="weather" :unit="unit" :forecast="forecast" :city="city" />
+    <div class="weather-search-wrapper">
+      <input @keyup.enter="getWeatherNow" type="text" v-model="location">
+      <div class="search-btn-wrap">
+        <button class="weather-now btn" @click="getWeatherNow">Weather Now</button>
+        <button class="weather-forecast btn" @click="getWeatherForecast">Forecast</button>
+      </div>
+    </div>
+    <Results v-if="weather !== 'niks' || forecast !== ''" :weather="weather" :unit="unit" :forecast="forecast"
+      :city="city" />
     <h3 v-if="weather.forecast">{{ weather.forecast }}</h3>
   </div>
 </template>
@@ -63,5 +68,43 @@ export default {
 <style scoped>
 .homeWrapper {
   text-align: center;
+}
+
+/* button get weather-now and get weather-forecast styling */
+.btn {
+  background: none;
+  border: 3px solid rgb(173, 69, 102);
+  width: fit-content;
+  height: auto;
+  padding: 10px 30px;
+}
+.btn:hover {
+  background-color:  rgb(173, 69, 102);
+  border-color: rgb(189, 122, 143);
+  transition: 0.1s ease-in;
+  transform: scale(1.05);
+  border-radius: 5px;
+  
+}
+
+/* button and search bar layout/posistioning */
+input {
+  width: 400px;
+
+}
+input:focus {
+  outline: 3px solid rgb(173, 69, 102);
+}
+.weather-search-wrapper {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.search-btn-wrap {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>

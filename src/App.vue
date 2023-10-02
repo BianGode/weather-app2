@@ -10,9 +10,11 @@
     </div>
   </nav>
   <div @click="unitConverter" class="floatingbutton-div">
-    <button class="unit-change-btn">{{ CorF }}</button>
-    <p v-if="CorF == 'C'">Celcius</p>
-    <p v-if="CorF == 'F'">Fahrenheit</p>
+    <button class="unit-change-btn" v-if="CorF == 'C'">Metric</button>
+    <p v-if="CorF == 'C'">Celcius / Km/H</p>
+
+    <button class="unit-change-btn" v-if="CorF == 'F'">Imperial</button>
+    <p v-if="CorF == 'F'">Fahrenheit / Mp/H</p>
   </div>
   <router-view :logged="isLoggedIn" :unit="CorF" />
 </template>
@@ -106,21 +108,22 @@ body {
   position: absolute;
   bottom: 30px;
   right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 .unit-change-btn {
-  position: fixed;
-  bottom: 80px;
-  right: 30px;
-  background-color: rgb(0, 194, 200);
-  width: 50px;
+  background-color: rgb(194, 217, 133);
+  width: 90px;
   height: 50px;
-  border-radius: 90px;
-  border: 3px solid rgb(5, 68, 113);
+  border-radius: 20px;
+  border: 3px solid rgb(140, 110, 40);
 }
 .floatingbutton-div>p {
   /* display: none; */
   color: white;
+  transition: 0.2s ease-in-out;
 }
 
 .floatingbutton-div:hover > p {
